@@ -1,0 +1,36 @@
+allprojects {
+	group = 'ee.email'
+	version = '1.0-SNAPSHOT'
+	defaultTasks 'build','install'
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'maven'
+
+	sourceCompatibility = 1.8
+
+	[ compileJava, compileTestJava ]*.options*.encoding = 'UTF-8'
+	
+	dependencies {
+		testCompile 'junit:junit:4.10'
+	}
+	
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	    maven {	url "https://oss.sonatype.org/content/repositories/releases" }
+	}
+
+	jar {
+    	manifest.attributes provider: 'Eugeis Software'
+	}
+
+	task cleanAll << { task ->
+		['bin','target','build','dist','temp','dist.zip'].each { name ->
+			def file = new File("$task.project.name/$name")
+			if(file.exists()) if(file.isDirectory())file.deleteDir() else file.delete()
+		}
+	}
+}

@@ -1,0 +1,1 @@
+include "ee-email-core", "ee-email-elastic", "ee-email-imap", "ee-email-outlook"

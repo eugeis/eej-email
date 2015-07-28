@@ -1,0 +1,136 @@
+Application=Microsoft.Office.Interop.Outlook.ApplicationClass
+Class=43
+Session=Microsoft.Office.Interop.Outlook.NameSpaceClass
+Parent=System.__ComObject
+Actions=System.__ComObject
+Attachments=System.__ComObject
+BillingInformation=
+Body=Hallo,
+ 
+ich häng immer noch an der NullPointerException bei der Historyabfrage.
+Zum testen arbeit ich mit dem GUI auf T1, der Stacktrace befindet sich im Anhang.
+ 
+Bin momentan etwas ratlos wie ich den Fehler analysieren soll.
+Ich vermute das es beim Transfer vom ODS zu OFP zu der Nullpointerexception kommt,
+aber wie kann ich sowas debuggen oder nachvollziehen?
+Ich wollte meine persistance.xml auf die DB von T1 umstellen, was leider nicht
+ganz geklappt hat, weil ich nicht weiß wie die jta-data-source heißt.
+ 
+Ihr habt momentan sicher viel zu tun; wenn einem von euch aber dazu was einfällt und
+kurz zurückschreiben könnte, wär das super : )
+ 
+Danke und Gruß,
+Jonas
+Categories=
+Companies=
+ConversationIndex=01CBE872F21B5C45C34CB1F64DA888DF1C81EB23E202
+ConversationTopic=HistoryException
+CreationTime=22.03.2011 10:24:32
+EntryID=000000005B092A36E3C5D411948200005A40FDD407001237B133D9B4D311947400005A40FDD40000026B0206000057F03281B9377744BE584C10855F2B0E0068F22720230000
+FormDescription=System.__ComObject
+GetInspector=System.__ComObject
+Importance=1
+LastModificationTime=22.03.2011 10:24:32
+MessageClass=IPM.Note
+Mileage=
+NoAging=False
+OutlookInternalVersion=0
+OutlookVersion=
+Saved=True
+Sensitivity=0
+Size=23393
+Subject=HistoryException
+UnRead=False
+UserProperties=System.__ComObject
+AlternateRecipientAllowed=True
+AutoForwarded=False
+BCC=
+CC=Hensler, Eike
+DeferredDeliveryTime=01.01.4501 00:00:00
+DeleteAfterSubmit=False
+ExpiryTime=01.01.4501 00:00:00
+FlagDueBy=01.01.4501 00:00:00
+FlagRequest=
+FlagStatus=0
+HTMLBody=<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+
+<META name=GENERATOR content="MSHTML 8.00.6001.19019"></HEAD>
+<BODY>
+<DIV><SPAN class=864340909-22032011><FONT
+face=Calibri>Hallo,</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT
+face=Calibri></FONT></SPAN>&nbsp;</DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>ich häng immer noch an
+der NullPointerException bei der Historyabfrage.</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>Zum testen arbeit ich mit
+dem GUI auf T1, d</FONT></SPAN><SPAN class=864340909-22032011><FONT
+face=Calibri>er Stacktrace befindet sich im Anhang.</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT
+face=Calibri></FONT></SPAN>&nbsp;</DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>Bin momentan etwas ratlos
+wie ich den Fehler analysieren soll.</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>Ich vermute das es beim
+Transfer vom ODS zu OFP zu der Nullpointerexception kommt,</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>aber wie kann ich sowas
+debuggen oder nachvollziehen?</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>Ich wollte meine
+persistance.xml auf die DB von T1 umstellen, was leider
+nicht</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>ganz geklappt hat, weil
+ich nicht weiß wie die jta-data-source heißt.</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT
+face=Calibri></FONT></SPAN>&nbsp;</DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>Ihr habt momentan sicher
+viel zu tun; wenn einem von euch aber dazu was einfällt und</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>kurz zurückschreiben
+</FONT></SPAN><SPAN class=864340909-22032011><FONT face=Calibri>könnte, wär das
+super : )</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT
+face=Calibri></FONT></SPAN>&nbsp;</DIV>
+<DIV><SPAN class=864340909-22032011><FONT face=Calibri>Danke und
+Gruß,</FONT></SPAN></DIV>
+<DIV><SPAN class=864340909-22032011><FONT
+face=Calibri>Jonas</FONT></SPAN></DIV></BODY></HTML>
+
+OriginatorDeliveryReportRequested=False
+ReadReceiptRequested=False
+ReceivedByEntryID=M   ??????☺   ????????????????????????
+ReceivedByName=Eisler, Eugen
+ReceivedOnBehalfOfEntryID=M   ??????☺   ????????????????????????
+ReceivedOnBehalfOfName=Eisler, Eugen
+ReceivedTime=22.03.2011 10:24:32
+RecipientReassignmentProhibited=False
+Recipients=System.__ComObject
+ReminderOverrideDefault=False
+ReminderPlaySound=False
+ReminderSet=False
+ReminderSoundFile=
+ReminderTime=01.01.4501 00:00:00
+RemoteStatus=0
+ReplyRecipientNames=
+ReplyRecipients=System.__ComObject
+SaveSentMessageFolder=System.__ComObject
+SenderName=Mutz, Jonas
+Sent=True
+SentOn=22.03.2011 10:24:29
+SentOnBehalfOfName=Mutz, Jonas
+Submitted=False
+To=Betz, Wolfgang; Eisler, Eugen
+VotingOptions=
+VotingResponse=
+Links=System.__ComObject
+ItemProperties=System.__ComObject
+BodyFormat=2
+DownloadState=1
+InternetCodepage=28591
+MarkForDownload=0
+IsConflict=False
+FlagIcon=0
+AutoResolvedWinner=False
+Conflicts=System.__ComObject
+SenderEmailAddress=/O=SCN/OU=WW001E01/CN=RECIPIENTS/CN=MUTZJONA
+SenderEmailType=EX
+EnableSharedAttachments=True
+Permission=0
+PermissionService=0

@@ -1,0 +1,4 @@
+dependencies {
+	compile project(':ee-email-core')
+	compile files ('lib/x86-3.3.0-v3346.jar')
+}

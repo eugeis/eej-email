@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<umlnotation:UMLDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.3/Umlnotation" xmi:id="_F_PAQPi-EeCbp7moPB05DA" type="Class" name="classdiagram.dnx">
+  <eAnnotations xmi:id="_F_PAQfi-EeCbp7moPB05DA" source="com.ibm.xtools.common.ui.reduction.editingCapabilities">
+    <details xmi:id="_F_PAQvi-EeCbp7moPB05DA" key="com.ibm.xtools.activities.javaVisualizerActivity" value="1"/>
+  </eAnnotations>
+  <element xsi:nil="true"/>
+</umlnotation:UMLDiagram>
