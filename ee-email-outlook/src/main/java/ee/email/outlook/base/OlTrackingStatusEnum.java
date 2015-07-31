@@ -7,8 +7,7 @@ package ee.email.outlook.base;
  * @author eugeis
  */
 public enum OlTrackingStatusEnum {
-  olTrackingNone(0), olTrackingDelivered(1), olTrackingNotDelivered(2), olTrackingNotRead(3), olTrackingRecallFailure(4), olTrackingRecallSuccess(
-      5), olTrackingRead(6), olTrackingReplied(7);
+  olTrackingNone(0), olTrackingDelivered(1), olTrackingNotDelivered(2), olTrackingNotRead(3), olTrackingRecallFailure(4), olTrackingRecallSuccess(5), olTrackingRead(6), olTrackingReplied(7);
 
   private final int value;
 

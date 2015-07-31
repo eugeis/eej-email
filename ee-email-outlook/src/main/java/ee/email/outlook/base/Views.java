@@ -49,6 +49,7 @@ public class Views<E extends View> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

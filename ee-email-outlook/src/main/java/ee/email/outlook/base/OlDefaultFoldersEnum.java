@@ -7,9 +7,7 @@ package ee.email.outlook.base;
  * @author eugeis
  */
 public enum OlDefaultFoldersEnum {
-  olFolderDeletedItems(3), olFolderOutbox(4), olFolderSentMail(5), olFolderInbox(6), olFolderCalendar(9), olFolderContacts(
-      10), olFolderJournal(11), olFolderNotes(12), olFolderTasks(13), olFolderDrafts(16), olFolderConflicts(19), olPublicFoldersAllPublicFolders(
-      18), olFolderLocalFailures(21), olFolderSyncIssues(20), olFolderJunk(23), olFolderServerFailures(22);
+  olFolderDeletedItems(3), olFolderOutbox(4), olFolderSentMail(5), olFolderInbox(6), olFolderCalendar(9), olFolderContacts(10), olFolderJournal(11), olFolderNotes(12), olFolderTasks(13), olFolderDrafts(16), olFolderConflicts(19), olPublicFoldersAllPublicFolders(18), olFolderLocalFailures(21), olFolderSyncIssues(20), olFolderJunk(23), olFolderServerFailures(22);
 
   private final int value;
 

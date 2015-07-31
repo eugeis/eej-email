@@ -47,6 +47,7 @@ public class OleExceptions<E extends OleException> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

@@ -47,6 +47,7 @@ public class Inspectors<E extends Inspector> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

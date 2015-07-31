@@ -7,8 +7,7 @@ package ee.email.outlook.base;
  * @author eugeis
  */
 public enum OlFlagIconEnum {
-  olNoFlagIcon(0), olPurpleFlagIcon(1), olOrangeFlagIcon(2), olGreenFlagIcon(3), olYellowFlagIcon(4), olBlueFlagIcon(5), olRedFlagIcon(
-      6);
+  olNoFlagIcon(0), olPurpleFlagIcon(1), olOrangeFlagIcon(2), olGreenFlagIcon(3), olYellowFlagIcon(4), olBlueFlagIcon(5), olRedFlagIcon(6);
 
   private final int value;
 

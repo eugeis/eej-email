@@ -45,6 +45,7 @@ public class PropertyPages<E extends PropertyPage> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

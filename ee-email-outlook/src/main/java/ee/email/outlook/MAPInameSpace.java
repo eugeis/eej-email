@@ -34,15 +34,14 @@ public class MAPInameSpace extends NameSpace {
   public Folders<MAPIFolder> getFolders() {
 
     if (this.folders == null) {
-      this.folders =
-          new Folders<MAPIFolder>(getPropertyAs("Folders"), this.initImmediate, new OleAutoFactory<MAPIFolder>() {
+      this.folders = new Folders<MAPIFolder>(getPropertyAs("Folders"), this.initImmediate, new OleAutoFactory<MAPIFolder>() {
 
-            @Override
-            public MAPIFolder createOleAutoObject(OleAutomation auto, boolean initImmediate) {
+        @Override
+        public MAPIFolder createOleAutoObject(OleAutomation auto, boolean initImmediate) {
 
-              return new MAPIFolder(auto, initImmediate);
-            }
-          });
+          return new MAPIFolder(auto, initImmediate);
+        }
+      });
     }
     return this.folders;
   }

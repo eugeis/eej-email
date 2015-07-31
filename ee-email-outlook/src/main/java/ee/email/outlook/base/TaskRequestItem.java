@@ -162,6 +162,7 @@ public class TaskRequestItem extends OleAuto {
     super(auto, initImmediate);
   }
 
+  @Override
   public void init() {
 
     super.init();

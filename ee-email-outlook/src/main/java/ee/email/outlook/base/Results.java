@@ -51,6 +51,7 @@ public class Results<E extends OleAuto> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

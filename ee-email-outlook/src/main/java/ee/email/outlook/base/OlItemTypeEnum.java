@@ -7,8 +7,7 @@ package ee.email.outlook.base;
  * @author eugeis
  */
 public enum OlItemTypeEnum {
-  olMailItem(0), olAppointmentItem(1), olContactItem(2), olTaskItem(3), olJournalItem(4), olNoteItem(5), olPostItem(6), olDistributionListItem(
-      7);
+  olMailItem(0), olAppointmentItem(1), olContactItem(2), olTaskItem(3), olJournalItem(4), olNoteItem(5), olPostItem(6), olDistributionListItem(7);
 
   private final int value;
 

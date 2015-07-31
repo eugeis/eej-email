@@ -7,8 +7,7 @@ package ee.email.outlook.base;
  * @author eugeis
  */
 public enum OlExchangeConnectionModeEnum {
-  olNoExchange(0), olCachedConnectedFull(700), olOffline(100), olOnline(800), olCachedOffline(200), olCachedConnectedHeaders(
-      500), olCachedConnectedDrizzle(600), olCachedDisconnected(400), olDisconnected(300);
+  olNoExchange(0), olCachedConnectedFull(700), olOffline(100), olOnline(800), olCachedOffline(200), olCachedConnectedHeaders(500), olCachedConnectedDrizzle(600), olCachedDisconnected(400), olDisconnected(300);
 
   private final int value;
 

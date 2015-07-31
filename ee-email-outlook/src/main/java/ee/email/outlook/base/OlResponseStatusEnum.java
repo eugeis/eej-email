@@ -7,8 +7,7 @@ package ee.email.outlook.base;
  * @author eugeis
  */
 public enum OlResponseStatusEnum {
-  olResponseNone(0), olResponseOrganized(1), olResponseTentative(2), olResponseAccepted(3), olResponseDeclined(4), olResponseNotResponded(
-      5);
+  olResponseNone(0), olResponseOrganized(1), olResponseTentative(2), olResponseAccepted(3), olResponseDeclined(4), olResponseNotResponded(5);
 
   private final int value;
 

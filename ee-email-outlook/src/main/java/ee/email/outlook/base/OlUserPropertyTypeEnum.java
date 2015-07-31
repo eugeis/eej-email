@@ -7,8 +7,7 @@ package ee.email.outlook.base;
  * @author eugeis
  */
 public enum OlUserPropertyTypeEnum {
-  olOutlookInternal(0), olText(1), olCombination(19), olFormula(18), olNumber(3), olDateTime(5), olYesNo(6), olDuration(
-      7), olKeywords(11), olPercent(12), olCurrency(14);
+  olOutlookInternal(0), olText(1), olCombination(19), olFormula(18), olNumber(3), olDateTime(5), olYesNo(6), olDuration(7), olKeywords(11), olPercent(12), olCurrency(14);
 
   private final int value;
 

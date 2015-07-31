@@ -3,27 +3,27 @@ apply plugin: 'application'
 mainClassName = "ee.email.core.elastic.IndexControllerFactory"
 
 dependencies {
-    compile 'ee.elastic:ee-elastic-core:1.0-SNAPSHOT'
-    compile project(':ee-email-core')
-    compile project(':ee-email-imap')
-    compile project(':ee-email-outlook')
-    compile 'com.beust:jcommander:1.48'
+  compile 'ee.elastic:ee-elastic-core:1.0-SNAPSHOT'
+  compile project(':ee-email-core')
+  compile project(':ee-email-imap')
+  compile project(':ee-email-outlook')
+  compile 'com.beust:jcommander:1.48'
+  compile 'ch.qos.logback:logback-classic:1.1.3'
 }
 
-applicationDistribution.from("$rootDir/src/main/dist") {
-    into "."
-}
+//applicationDistribution.from("src/main/dist") { into "." }
 
-task uploadDistZip (dependsOn:distZip) {
-	def srcFile = file("$buildDir/distributions/${applicationName}-${version}.zip")
-	def destDir = '/Volumes/server/tools/'
-	inputs.file srcFile
-	outputs.dir destDir
+task installDist (dependsOn:distZip) {
+  def srcFile = file("$buildDir/distributions/${applicationName}-${version}.zip")
+  def destDir = "D:/t"
 
-	doLast {
-		copy {
-			from(srcFile)
-			into(destDir)
-		}
-	}
+  inputs.file srcFile
+  outputs.dir "$destDir/${applicationName}-${version}"
+
+  doLast {
+    copy {
+      from zipTree(srcFile)
+      into file(destDir)
+    }
+  }
 }

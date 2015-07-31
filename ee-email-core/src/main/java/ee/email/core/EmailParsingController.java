@@ -21,12 +21,7 @@ import java.util.Date;
 
 public interface EmailParsingController<E> {
 
-  int parseEmailContainer(
-      File file,
-      ParsedCallback<E> parsedCallback,
-      Date newerAsDate) throws IOException;
+  int parseEmailContainer(File file, ParsedCallback<E> parsedCallback, Date newerAsDate) throws IOException;
 
-  int parseEmails(
-      ParsedCallback<E> parsedCallback,
-      Date newerAsDate) throws IOException;
+  int parseEmails(ParsedCallback<E> parsedCallback, Date newerAsDate) throws IOException;
 }

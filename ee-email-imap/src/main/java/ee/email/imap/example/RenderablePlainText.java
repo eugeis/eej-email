@@ -15,29 +15,33 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 
 public class RenderablePlainText implements Renderable {
-    
-    String bodytext;
-    String subject;
-    
-    public RenderablePlainText(Message message) throws MessagingException, IOException {
-        subject=message.getSubject().substring("MailPage:".length());
-        bodytext=(String)message.getContent();
-    }
-    
-    public Attachment getAttachment(int i) {
-        return null;
-    }
-    
-    public int getAttachmentCount() {
-        return 0;
-    }
-    
-    public String getBodytext() {
-        return "<PRE>"+bodytext+"</PRE>";
-    }
-    
-    public String getSubject() {
-        return subject;
-    }
-    
+
+  String bodytext;
+  String subject;
+
+  public RenderablePlainText(Message message) throws MessagingException, IOException {
+    subject = message.getSubject().substring("MailPage:".length());
+    bodytext = (String) message.getContent();
+  }
+
+  @Override
+  public Attachment getAttachment(int i) {
+    return null;
+  }
+
+  @Override
+  public int getAttachmentCount() {
+    return 0;
+  }
+
+  @Override
+  public String getBodytext() {
+    return "<PRE>" + bodytext + "</PRE>";
+  }
+
+  @Override
+  public String getSubject() {
+    return subject;
+  }
+
 }

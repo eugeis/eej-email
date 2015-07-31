@@ -64,6 +64,7 @@ public class UserProperties<E extends UserProperty> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

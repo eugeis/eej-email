@@ -63,6 +63,7 @@ public class Actions<E extends Action> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

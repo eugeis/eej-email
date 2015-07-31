@@ -7,18 +7,7 @@ package ee.email.outlook.base;
  * @author eugeis
  */
 public enum OlObjectClassEnum {
-  olApplication(0), olNamespace(1), olFolder(2), olRecipient(4), olAttachment(5), olAddressList(7), olAddressEntry(8), olFolders(
-      15), olRecipients(17), olItems(16), olAttachments(18), olAddressEntries(21), olAddressLists(20), olAppointment(26), olExceptions(
-      29), olRecurrencePattern(28), olException(30), olExplorer(34), olInspector(35), olAction(32), olActions(33), olUserProperties(
-      38), olUserProperty(39), olPages(36), olFormDescription(37), olJournal(42), olMail(43), olContact(40), olDocument(
-      41), olReport(46), olRemote(47), olNote(44), olPost(45), olTaskRequestAccept(51), olTaskRequestUpdate(50), olTaskRequest(
-      49), olTask(48), olMeetingResponseNegative(55), olMeetingCancellation(54), olMeetingRequest(53), olTaskRequestDecline(
-      52), olMeetingResponseTentative(57), olMeetingResponsePositive(56), olOutlookBarPane(63), olPanes(62), olInspectors(
-      61), olExplorers(60), olOutlookBarShortcut(68), olDistributionList(69), olPropertyPageSite(70), olPropertyPages(
-      71), olOutlookBarStorage(64), olOutlookBarGroups(65), olOutlookBarGroup(66), olOutlookBarShortcuts(67), olLinks(
-      76), olSearch(77), olResults(78), olViews(79), olSyncObject(72), olSyncObjects(73), olSelection(74), olLink(75), olView(
-      80), olReminders(100), olReminder(101), olItemProperties(98), olItemProperty(99), olConflicts(118), olConflict(
-      117);
+  olApplication(0), olNamespace(1), olFolder(2), olRecipient(4), olAttachment(5), olAddressList(7), olAddressEntry(8), olFolders(15), olRecipients(17), olItems(16), olAttachments(18), olAddressEntries(21), olAddressLists(20), olAppointment(26), olExceptions(29), olRecurrencePattern(28), olException(30), olExplorer(34), olInspector(35), olAction(32), olActions(33), olUserProperties(38), olUserProperty(39), olPages(36), olFormDescription(37), olJournal(42), olMail(43), olContact(40), olDocument(41), olReport(46), olRemote(47), olNote(44), olPost(45), olTaskRequestAccept(51), olTaskRequestUpdate(50), olTaskRequest(49), olTask(48), olMeetingResponseNegative(55), olMeetingCancellation(54), olMeetingRequest(53), olTaskRequestDecline(52), olMeetingResponseTentative(57), olMeetingResponsePositive(56), olOutlookBarPane(63), olPanes(62), olInspectors(61), olExplorers(60), olOutlookBarShortcut(68), olDistributionList(69), olPropertyPageSite(70), olPropertyPages(71), olOutlookBarStorage(64), olOutlookBarGroups(65), olOutlookBarGroup(66), olOutlookBarShortcuts(67), olLinks(76), olSearch(77), olResults(78), olViews(79), olSyncObject(72), olSyncObjects(73), olSelection(74), olLink(75), olView(80), olReminders(100), olReminder(101), olItemProperties(98), olItemProperty(99), olConflicts(118), olConflict(117);
 
   private final int value;
 

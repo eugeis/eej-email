@@ -52,6 +52,7 @@ public class Reminders<E extends Reminder> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

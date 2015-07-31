@@ -50,6 +50,7 @@ public class OutlookBarShortcuts<E extends OutlookBarShortcut> extends OleCollec
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

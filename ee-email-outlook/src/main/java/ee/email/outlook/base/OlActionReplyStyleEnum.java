@@ -7,8 +7,7 @@ package ee.email.outlook.base;
  * @author eugeis
  */
 public enum OlActionReplyStyleEnum {
-  olOmitOriginalText(0), olEmbedOriginalItem(1), olReplyTickOriginalText(1000), olIncludeOriginalText(2), olIndentOriginalText(
-      3), olLinkOriginalItem(4), olUserPreference(5);
+  olOmitOriginalText(0), olEmbedOriginalItem(1), olReplyTickOriginalText(1000), olIncludeOriginalText(2), olIndentOriginalText(3), olLinkOriginalItem(4), olUserPreference(5);
 
   private final int value;
 

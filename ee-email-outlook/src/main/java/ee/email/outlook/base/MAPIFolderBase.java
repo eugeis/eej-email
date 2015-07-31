@@ -104,6 +104,7 @@ public class MAPIFolderBase extends OleAuto {
     super(auto, initImmediate);
   }
 
+  @Override
   public void init() {
 
     super.init();

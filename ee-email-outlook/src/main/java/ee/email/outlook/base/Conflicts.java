@@ -66,6 +66,7 @@ public class Conflicts<E extends Conflict> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

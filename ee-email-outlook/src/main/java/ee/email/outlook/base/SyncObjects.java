@@ -50,6 +50,7 @@ public class SyncObjects<E extends SyncObject> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

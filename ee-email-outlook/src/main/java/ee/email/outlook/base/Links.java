@@ -64,6 +64,7 @@ public class Links<E extends Link> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

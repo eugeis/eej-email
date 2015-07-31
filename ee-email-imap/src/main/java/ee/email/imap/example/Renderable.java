@@ -14,12 +14,12 @@ package ee.email.imap.example;
  * @author Dj
  */
 public interface Renderable {
-    Attachment getAttachment(int i);
+  Attachment getAttachment(int i);
 
-    int getAttachmentCount();
+  int getAttachmentCount();
 
-    String getBodytext();
+  String getBodytext();
 
-    String getSubject();
-    
+  String getSubject();
+
 }

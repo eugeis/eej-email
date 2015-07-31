@@ -46,6 +46,7 @@ public class AddressLists<E extends AddressList> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

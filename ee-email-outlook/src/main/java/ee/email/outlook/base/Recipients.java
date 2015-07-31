@@ -54,6 +54,7 @@ public class Recipients<E extends Recipient> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

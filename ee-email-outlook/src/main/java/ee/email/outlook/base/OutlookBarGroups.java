@@ -50,6 +50,7 @@ public class OutlookBarGroups<E extends OutlookBarGroup> extends OleCollection<E
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();

@@ -72,8 +72,7 @@ public class IndexerImpl implements Indexer<Email> {
       builder.field(FROM_NAME, item.getFromName() != null ? item.getFromName() : "");
       builder.field(TO, item.getTo() != null ? item.getTo() : "");
 
-      IndexRequestBuilder requestBuilder =
-          this.indexAdmin.prepareIndex(EMAIL, item.getId()).setSource(builder.endObject());
+      IndexRequestBuilder requestBuilder = this.indexAdmin.prepareIndex(EMAIL, item.getId()).setSource(builder.endObject());
 
       // IndexResponse response = requestBuilder.execute().actionGet();
       requestBuilder.execute();

@@ -53,6 +53,7 @@ public class AddressEntries<E extends AddressEntry> extends OleCollection<E> {
     super(auto, initImmediate, childFactory);
   }
 
+  @Override
   public void init() {
 
     super.init();
