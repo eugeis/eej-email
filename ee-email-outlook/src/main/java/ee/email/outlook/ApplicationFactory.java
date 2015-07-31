@@ -2,7 +2,6 @@ package ee.email.outlook;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.ole.win32.OLE;
 import org.eclipse.swt.ole.win32.OleAutomation;
 import org.eclipse.swt.ole.win32.OleClientSite;
 import org.eclipse.swt.ole.win32.OleFrame;
@@ -37,7 +36,7 @@ public class ApplicationFactory implements EmailParsingFactory<Email> {
 
   public synchronized Application getApplication(boolean initImmediate) {
 
-    if (this.application == null) {
+    if (application == null) {
       Display display = new Display();
       Shell shell = new Shell(display);
 
@@ -47,39 +46,39 @@ public class ApplicationFactory implements EmailParsingFactory<Email> {
       // Open or 'activate' Outlook
       OleFrame frm = new OleFrame(shell, SWT.NONE);
       // This should start outlook if it is not running yet
-      OleClientSite site0 = new OleClientSite(frm, SWT.NONE, "OVCtl.OVCtl");
-      site0.doVerb(OLE.OLEIVERB_INPLACEACTIVATE);
+      //OleClientSite site0 = new OleClientSite(frm, SWT.NONE, "OVCtl.OVCtl");
+      //site0.doVerb(OLE.OLEIVERB_INPLACEACTIVATE);
       // Now get the outlook application
       OleClientSite site = new OleClientSite(frm, SWT.NONE, "Outlook.Application");
       OleAutomation auto = new OleAutomation(site);
 
-      this.application = new Application(auto, initImmediate);
+      application = new Application(auto, initImmediate);
       this.display = display;
 
     }
-    return this.application;
+    return application;
   }
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see ee.email.core.EmailParsingFactory#getEmailParsingController()
    */
   @Override
   public EmailParsingController<Email> getEmailParsingController() {
 
-    if (this.emailParsingController == null) {
+    if (emailParsingController == null) {
       RegExpFolderFilter folderFilterForRecursion = createFolderFilterForRecursion();
       RegExpFolderFilter folderFilter = createFolderFilter();
-      this.emailParsingController = new OutlookParsingController(getApplication(false), folderFilterForRecursion, folderFilter);
+      emailParsingController = new OutlookParsingController(getApplication(false), folderFilterForRecursion, folderFilter);
       ;
     }
-    return this.emailParsingController;
+    return emailParsingController;
   }
 
   /**
    * Creates the folder filter.
-   * 
+   *
    * @return the reg exp folder filter
    */
   protected RegExpFolderFilter createFolderFilter() {
@@ -90,7 +89,7 @@ public class ApplicationFactory implements EmailParsingFactory<Email> {
 
   /**
    * Creates the folder filter for recursion.
-   * 
+   *
    * @return the reg exp folder filter
    */
   protected RegExpFolderFilter createFolderFilterForRecursion() {
@@ -102,12 +101,12 @@ public class ApplicationFactory implements EmailParsingFactory<Email> {
   @Override
   public void close() {
 
-    if (this.application != null) {
-      this.application.dispose();
+    if (application != null) {
+      application.dispose();
     }
     if (display != null) {
-      this.display.dispose();
-      this.display = null;
+      display.dispose();
+      display = null;
     }
   }
 
@@ -116,7 +115,7 @@ public class ApplicationFactory implements EmailParsingFactory<Email> {
     if (ret == null) {
       throw new IllegalArgumentException("System parameter '" + key + "' not defined.");
     } else {
-      this.logger.info("Use system parameter {}={}", key, ret);
+      logger.info("Use system parameter {}={}", key, ret);
     }
     return ret;
   }
