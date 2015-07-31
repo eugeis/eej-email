@@ -1,3 +1,12 @@
+def _scripts = System.getenv('CG_CM_SCRIPTS_HOME') ?: 'D:/CG/src/cg-cm/cg-cm-scripts'
+ext.scripts = project.hasProperty('superpom') ? project.superpom : "$_scripts/gradlebuild"
+logger.info "Calculated 'superpom' location: $scripts"
+
+File f = null
+try {
+  f = file("$scripts/repos.gradle")
+} catch (e) {}
+
 allprojects {
 	group = 'ee.email'
 	version = '1.0-SNAPSHOT'
@@ -8,20 +17,27 @@ subprojects {
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
 	apply plugin: 'maven'
+	apply plugin: 'maven-publish'
 
-	sourceCompatibility = 1.8
+	sourceCompatibility = 1.7
 
 	[ compileJava, compileTestJava ]*.options*.encoding = 'UTF-8'
-	
+
 	dependencies {
+		compile "org.slf4j:slf4j-api:1.7.12"
 		testCompile 'junit:junit:4.10'
 	}
-	
-	repositories {
-		mavenLocal()
-		mavenCentral()
-	    maven {	url "https://oss.sonatype.org/content/repositories/releases" }
-	}
+
+	  if(f && f.exists()) {
+		apply from: f.absolutePath
+	  } else {
+		repositories {
+			mavenLocal()
+			mavenCentral()
+			maven {	url "https://oss.sonatype.org/content/repositories/releases" }
+		}
+	  }
+
 
 	jar {
     	manifest.attributes provider: 'Eugeis Software'

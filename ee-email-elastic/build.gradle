@@ -1,13 +1,13 @@
 apply plugin: 'application'
 
-mainClassName = "eugeis.email.core.elasticsearch.IndexControllerFactory"
+mainClassName = "ee.email.core.elastic.IndexControllerFactory"
 
 dependencies {
     compile 'ee.elastic:ee-elastic-core:1.0-SNAPSHOT'
     compile project(':ee-email-core')
     compile project(':ee-email-imap')
     compile project(':ee-email-outlook')
-    compile 'com.beust:jcommander:1.25'
+    compile 'com.beust:jcommander:1.48'
 }
 
 applicationDistribution.from("$rootDir/src/main/dist") {
@@ -19,7 +19,7 @@ task uploadDistZip (dependsOn:distZip) {
 	def destDir = '/Volumes/server/tools/'
 	inputs.file srcFile
 	outputs.dir destDir
-	
+
 	doLast {
 		copy {
 			from(srcFile)

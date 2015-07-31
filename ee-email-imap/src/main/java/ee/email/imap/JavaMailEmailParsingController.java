@@ -47,7 +47,7 @@ public class JavaMailEmailParsingController implements
 		this.email = email;
 		this.password = password;
 		this.emailprovider = emailprovider;
-		this.messageParser = new MessageParser();
+		messageParser = new MessageParser();
 		this.folderFilterForRecursion = folderFilterForRecursion;
 		this.folderFilter = folderFilter;
 	}
