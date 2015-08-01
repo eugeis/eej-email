@@ -13,7 +13,7 @@ dependencies {
 
 //applicationDistribution.from("src/main/dist") { into "." }
 
-task installDist (dependsOn:distZip) {
+task installToDir (dependsOn:distZip) {
   def srcFile = file("$buildDir/distributions/${applicationName}-${version}.zip")
   def destDir = "D:/t"
 
