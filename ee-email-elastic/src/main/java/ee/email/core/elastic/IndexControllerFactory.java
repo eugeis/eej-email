@@ -43,7 +43,8 @@ public class IndexControllerFactory {
 
   public void recreateIndex(NodeType nodeType) {
 
-    IndexAdmin indexAdmin = new IndexAdmin(indexName, new ElasticAdmin(nodeType));
+    ElasticAdmin elasticAdmin = buildElasticAdmin(nodeType);
+    IndexAdmin indexAdmin = new IndexAdmin(indexName, elasticAdmin);
     EmailParsingController<Email> emailParsingController = emailParsingFactory.getEmailParsingController();
     IndexerOfParsedEmails parsedCallback = new IndexerOfParsedEmails(new IndexerImpl(indexAdmin));
 
@@ -53,6 +54,14 @@ public class IndexControllerFactory {
     } finally {
       dispose(indexAdmin);
     }
+  }
+
+  protected ElasticAdmin buildElasticAdmin(NodeType nodeType) {
+    ElasticAdmin elasticAdmin = new ElasticAdmin(nodeType);
+    if (nodeType == NodeType.Transport) {
+      elasticAdmin.addServerAddress("localhost", 9300);
+    }
+    return elasticAdmin;
   }
 
   protected void recreateIndex(IndexAdmin indexAdmin, IndexerOfParsedEmails parsedCallback, EmailParsingController<Email> emailParsingController) {
@@ -68,7 +77,8 @@ public class IndexControllerFactory {
 
   public void synchronizeIndex(NodeType nodeType) {
 
-    IndexAdmin indexAdmin = new IndexAdmin(indexName, new ElasticAdmin(nodeType));
+    ElasticAdmin elasticAdmin = buildElasticAdmin(nodeType);
+    IndexAdmin indexAdmin = new IndexAdmin(indexName, elasticAdmin);
     EmailParsingController<Email> emailParsingController = emailParsingFactory.getEmailParsingController();
     IndexerOfParsedEmails parsedCallback = new IndexerOfParsedEmails(new IndexerImpl(indexAdmin));
     try {
@@ -127,13 +137,13 @@ public class IndexControllerFactory {
         emailParsingFactory = (EmailParsingFactory<Email>) Class.forName(classOfEmailParsingFactory).newInstance();
         IndexControllerFactory indexControllerFactory = new IndexControllerFactory(indexName, emailParsingFactory);
         if (command.equalsIgnoreCase("recreate")) {
-          indexControllerFactory.recreateIndex(NodeType.Client);
+          indexControllerFactory.recreateIndex(NodeType.Transport);
         } else if (command.equalsIgnoreCase("synchronize")) {
-          indexControllerFactory.synchronizeIndex(NodeType.Client);
+          indexControllerFactory.synchronizeIndex(NodeType.Transport);
         } else if (command.equalsIgnoreCase("updateMappings")) {
-          indexControllerFactory.updateMappings(NodeType.Client);
+          indexControllerFactory.updateMappings(NodeType.Transport);
         } else {
-          indexControllerFactory.synchronizeIndex(NodeType.Client);
+          indexControllerFactory.synchronizeIndex(NodeType.Transport);
         }
       } catch (Exception e) {
         e.printStackTrace();
@@ -166,7 +176,7 @@ public class IndexControllerFactory {
   }
 
   protected Mapping[] buildMappings() {
-    return new Mapping[] { new Mapping("email", "/eugeis/email/elasticsearch/email-mapping.json") };
+    return new Mapping[] { new Mapping("email", "/ee/email/elasticsearch/email-mapping.json") };
   }
 
   protected static void printHelp() {
