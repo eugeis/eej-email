@@ -6,7 +6,6 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ee.common.util.ExceptionUtils;
 import ee.elastic.ElasticAdmin;
 import ee.elastic.IndexAdmin;
 import ee.elastic.Mapping;
@@ -147,7 +146,7 @@ public class IndexControllerFactory {
         }
       } catch (Exception e) {
         e.printStackTrace();
-        logger.error("Exception {} occured in IndexControllerFactory, with parameters {}: {}", e, args, ExceptionUtils.formatExceptionCauseHierarchy(e));
+        logger.error("Exception {} occured in IndexControllerFactory, with parameters {}: {}", e, args, e);
       } finally {
         if (emailParsingFactory != null) {
           try {
