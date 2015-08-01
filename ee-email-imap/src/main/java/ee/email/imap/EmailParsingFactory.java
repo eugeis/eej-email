@@ -11,9 +11,11 @@ import ee.email.core.ParsedCallback;
 import ee.email.core.RegExpFolderFilter;
 import ee.email.model.Email;
 
-public class EmailParsingFactory implements ee.email.core.EmailParsingFactory<Email> {
+public class EmailParsingFactory implements
+    ee.email.core.EmailParsingFactory<Email> {
 
-  private final Logger logger = LoggerFactory.getLogger(EmailParsingFactory.class);
+  private final Logger logger = LoggerFactory
+      .getLogger(EmailParsingFactory.class);
 
   /**
    * e.g. '.*(Inbox|Sent Items).*'
@@ -25,6 +27,12 @@ public class EmailParsingFactory implements ee.email.core.EmailParsingFactory<Em
    */
   public final static String SYS__REG_EXP_FOR_FOLDER_RECURSION = "regExpFolderRecursion";
 
+  public final static String SYS__SERVER = "server";
+
+  public final static String SYS__LOGIN = "login";
+
+  public final static String SYS__PASSWORD = "password";
+
   @Override
   public void close() throws IOException {
 
@@ -32,7 +40,11 @@ public class EmailParsingFactory implements ee.email.core.EmailParsingFactory<Em
 
   @Override
   public EmailParsingController<Email> getEmailParsingController() {
-    return new JavaMailEmailParsingController("imap.gmail.com", "eoeisler@gmail.com", "I3EndmL7", "imaps", createFolderFilterForRecursion(), createFolderFilter());
+    return new JavaMailEmailParsingController(
+        findRequiredSystemProperty(SYS__SERVER),
+        findRequiredSystemProperty(SYS__LOGIN),
+        findRequiredSystemProperty(SYS__PASSWORD), "imaps",
+        createFolderFilterForRecursion(), createFolderFilter());
   }
 
   /**
@@ -42,7 +54,8 @@ public class EmailParsingFactory implements ee.email.core.EmailParsingFactory<Em
    */
   protected RegExpFolderFilter createFolderFilter() {
 
-    RegExpFolderFilter folderFilter = new RegExpFolderFilter(getRequiredSystemProperty(SYS__REG_EXP_FOR_FOLDER, ".*"), true);
+    RegExpFolderFilter folderFilter = new RegExpFolderFilter(
+        findRequiredSystemProperty(SYS__REG_EXP_FOR_FOLDER, ".*"), true);
     return folderFilter;
   }
 
@@ -53,14 +66,21 @@ public class EmailParsingFactory implements ee.email.core.EmailParsingFactory<Em
    */
   protected RegExpFolderFilter createFolderFilterForRecursion() {
 
-    RegExpFolderFilter folderFilterForRecursion = new RegExpFolderFilter(getRequiredSystemProperty(SYS__REG_EXP_FOR_FOLDER_RECURSION, ".*"), true);
+    RegExpFolderFilter folderFilterForRecursion = new RegExpFolderFilter(
+        findRequiredSystemProperty(SYS__REG_EXP_FOR_FOLDER_RECURSION, ".*"),
+        true);
     return folderFilterForRecursion;
   }
 
-  private String getRequiredSystemProperty(String key, String defaultValue) {
+  private String findRequiredSystemProperty(String key) {
+    return findRequiredSystemProperty(key, null);
+  }
+
+  private String findRequiredSystemProperty(String key, String defaultValue) {
     String ret = System.getProperty(key, defaultValue);
     if (ret == null) {
-      throw new IllegalArgumentException("System parameter '" + key + "' not defined.");
+      throw new IllegalArgumentException("System parameter '" + key
+          + "' not defined.");
     } else {
       this.logger.info("Use system parameter {}={}", key, ret);
     }
@@ -68,18 +88,19 @@ public class EmailParsingFactory implements ee.email.core.EmailParsingFactory<Em
   }
 
   public static void main(String[] args) throws IOException {
-    new EmailParsingFactory().getEmailParsingController().parseEmails(new ParsedCallback<Email>() {
+    new EmailParsingFactory().getEmailParsingController().parseEmails(
+        new ParsedCallback<Email>() {
 
-      @Override
-      public void parsed(String parentReference, List<Email> entities) {
-        System.out.println(entities);
-      }
+          @Override
+          public void parsed(String parentReference, List<Email> entities) {
+            System.out.println(entities);
+          }
 
-      @Override
-      public void parsed(String parentReference, Email entity) {
-        System.out.println(entity);
-      }
-    }, null);
+          @Override
+          public void parsed(String parentReference, Email entity) {
+            System.out.println(entity);
+          }
+        }, null);
   }
 
 }
