@@ -65,9 +65,9 @@ public class JavaMailEmailParsingController implements
     int ret = 0;
     Properties props = System.getProperties();
     props.setProperty("mail.store.protocol", "imaps");
-    props.put("mail.imap.fetchsize", "1048576");            
+    props.put("mail.imap.fetchsize", "1048576");
     props.setProperty("mail.imap.partialfetch", "false");
-    props.setProperty("mail.imaps.partialfetch", "false");     
+    props.setProperty("mail.imaps.partialfetch", "false");
     Store store = null;
     try {
       Session session = Session.getDefaultInstance(props, null);
@@ -157,9 +157,10 @@ public class JavaMailEmailParsingController implements
             } catch (Exception e) {
               logger.error("'{}' by email parsing in '{}'", e, folder);
             }
-
+          } else {
+            // all new messages read
+            break;
           }
-
         }
       } else {
         logger.error("Folder '{}' is still closed", folder);
