@@ -26,8 +26,10 @@ import ee.email.core.ParsedCallback;
 import ee.email.imap.example.MessageParser;
 import ee.email.model.Email;
 
-public class JavaMailEmailParsingController implements EmailParsingController<Email> {
-  private final static Logger logger = LoggerFactory.getLogger(JavaMailEmailParsingController.class);
+public class JavaMailEmailParsingController implements
+    EmailParsingController<Email> {
+  private final static Logger logger = LoggerFactory
+      .getLogger(JavaMailEmailParsingController.class);
 
   private String host;
   private String email;
@@ -37,7 +39,9 @@ public class JavaMailEmailParsingController implements EmailParsingController<Em
   private FolderFilter folderFilter;
   private MessageParser messageParser;
 
-  public JavaMailEmailParsingController(String host, String email, String password, String emailprovider, FolderFilter folderFilterForRecursion, FolderFilter folderFilter) {
+  public JavaMailEmailParsingController(String host, String email,
+      String password, String emailprovider,
+      FolderFilter folderFilterForRecursion, FolderFilter folderFilter) {
     super();
     this.host = host;
     this.email = email;
@@ -49,16 +53,21 @@ public class JavaMailEmailParsingController implements EmailParsingController<Em
   }
 
   @Override
-  public int parseEmailContainer(File file, ParsedCallback<Email> parsedcallback, Date date) throws IOException {
+  public int parseEmailContainer(File file,
+      ParsedCallback<Email> parsedcallback, Date date) throws IOException {
 
     return 0;
   }
 
   @Override
-  public int parseEmails(ParsedCallback<Email> parsedcallback, Date date) throws IOException {
+  public int parseEmails(ParsedCallback<Email> parsedcallback, Date date)
+      throws IOException {
     int ret = 0;
     Properties props = System.getProperties();
     props.setProperty("mail.store.protocol", "imaps");
+    props.put("mail.imap.fetchsize", "1048576");            
+    props.setProperty("mail.imap.partialfetch", "false");
+    props.setProperty("mail.imaps.partialfetch", "false");     
     Store store = null;
     try {
       Session session = Session.getDefaultInstance(props, null);
@@ -86,19 +95,25 @@ public class JavaMailEmailParsingController implements EmailParsingController<Em
     return ret;
   }
 
-  protected void parseEmails(final Folder folder, final ParsedCallback<Email> parsedcallback, Date lastDate, ExecutorService executor) {
+  protected void parseEmails(final Folder folder,
+      final ParsedCallback<Email> parsedcallback, Date lastDate,
+      ExecutorService executor) {
     try {
-      if (folder.exists() && (folderFilter == null || folderFilter.isFolderToParse(folder.getFullName()))) {
+      if (folder.exists()
+          && (folderFilter == null || folderFilter.isFolderToParse(folder
+              .getFullName()))) {
         parseMessages(folder, parsedcallback, lastDate, executor);
       } else {
         logger.info("Ignore messages of the folder '{}'", folder.getFullName());
       }
     } catch (Exception e) {
-      logger.error("Unexcpected exception '{}' by email parsing in '{}'", e, folder);
+      logger.error("Unexcpected exception '{}' by email parsing in '{}'", e,
+          folder);
     }
 
     // is folder to parse recursive
-    if (folderFilterForRecursion == null || folderFilterForRecursion.isFolderToParse(folder.getFullName())) {
+    if (folderFilterForRecursion == null
+        || folderFilterForRecursion.isFolderToParse(folder.getFullName())) {
       try {
         logger.info("Parse childs of the folder '{}'", folder.getFullName());
         for (Folder childFolder : folder.list()) {
@@ -112,27 +127,42 @@ public class JavaMailEmailParsingController implements EmailParsingController<Em
     }
   }
 
-  protected void parseMessages(final Folder folder, final ParsedCallback<Email> parsedcallback, Date lastDate, ExecutorService executor) throws MessagingException {
+  protected void parseMessages(final Folder folder,
+      final ParsedCallback<Email> parsedcallback, Date lastDate,
+      ExecutorService executor) throws MessagingException {
     logger.info("Parse messages of the folder '{}'", folder.getFullName());
     if (folder instanceof IMAPFolder) {
       final IMAPFolder imapFolder = (IMAPFolder) folder;
       imapFolder.open(Folder.READ_ONLY);
-      Message[] messages = imapFolder.getMessages();
-      for (int i = messages.length - 1; i >= 0; i--) {
-        final Message message = messages[i];
-        if (lastDate == null || message.getReceivedDate().after(lastDate)) {
-          executor.execute(new Runnable() {
-            @Override
-            public void run() {
-              try {
-                Email email = messageParser.parseMessage((IMAPMessage) message);
-                parsedcallback.parsed(imapFolder.getFullName(), email);
-              } catch (Exception e) {
-                logger.error("Unexcpected exception '{}' by email parsing in '{}'", e, folder);
-              }
+      if (folder.isOpen()) {
+        Message[] messages = imapFolder.getMessages();
+        for (int i = messages.length - 1; i >= 0; i--) {
+          final Message message = messages[i];
+          if (lastDate == null || message.getReceivedDate().after(lastDate)) {
+
+            try {
+              final Email email = messageParser
+                  .parseMessage((IMAPMessage) message);
+              executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                  try {
+                    parsedcallback.parsed(imapFolder.getFullName(), email);
+                  } catch (Exception e) {
+                    logger.error("'{}' by email callback processing in '{}'",
+                        e, folder);
+                  }
+                }
+              });
+            } catch (Exception e) {
+              logger.error("'{}' by email parsing in '{}'", e, folder);
             }
-          });
+
+          }
+
         }
+      } else {
+        logger.error("Folder '{}' is still closed", folder);
       }
     }
   }

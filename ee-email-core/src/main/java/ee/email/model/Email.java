@@ -157,7 +157,8 @@ public class Email {
   @Override
   public String toString() {
 
-    return "Email [id=" + this.id + ", from=" + this.from + ", subject=" + this.subject + ", to=" + this.to + ", date=" + (this.date != null ? dateFormat.format(this.date) : "null") + "]";
+    return "Email [id=" + this.id + ", from=" + this.from + ", subject=" + this.subject + ", to=" + this.to
+        + ", date=" + (this.date != null ? dateFormat.format(this.date) : "null") + "]";
   }
 
 }

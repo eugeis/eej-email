@@ -24,7 +24,8 @@ import ee.email.model.Email;
  */
 public class IndexControllerFactory {
 
-  private static Logger logger = LoggerFactory.getLogger(IndexControllerFactory.class);
+  private static Logger logger = LoggerFactory
+      .getLogger(IndexControllerFactory.class);
 
   private static final String lastEmailsDateProperty = "lastEmailDate";
 
@@ -34,7 +35,8 @@ public class IndexControllerFactory {
 
   private final EmailParsingFactory<Email> emailParsingFactory;
 
-  public IndexControllerFactory(String indexName, EmailParsingFactory<Email> emailParsingFactory) {
+  public IndexControllerFactory(String indexName,
+      EmailParsingFactory<Email> emailParsingFactory) {
 
     this.indexName = indexName;
     this.emailParsingFactory = emailParsingFactory;
@@ -44,8 +46,10 @@ public class IndexControllerFactory {
 
     ElasticAdmin elasticAdmin = buildElasticAdmin(nodeType);
     IndexAdmin indexAdmin = new IndexAdmin(indexName, elasticAdmin);
-    EmailParsingController<Email> emailParsingController = emailParsingFactory.getEmailParsingController();
-    IndexerOfParsedEmails parsedCallback = new IndexerOfParsedEmails(new IndexerImpl(indexAdmin));
+    EmailParsingController<Email> emailParsingController = emailParsingFactory
+        .getEmailParsingController();
+    IndexerOfParsedEmails parsedCallback = new IndexerOfParsedEmails(
+        new IndexerImpl(indexAdmin));
 
     try {
       indexAdmin.connect();
@@ -63,14 +67,16 @@ public class IndexControllerFactory {
     return elasticAdmin;
   }
 
-  protected void recreateIndex(IndexAdmin indexAdmin, IndexerOfParsedEmails parsedCallback, EmailParsingController<Email> emailParsingController) {
+  protected void recreateIndex(IndexAdmin indexAdmin,
+      IndexerOfParsedEmails parsedCallback,
+      EmailParsingController<Email> emailParsingController) {
 
     indexAdmin.recreateIndex(buildMappings());
     try {
       emailParsingController.parseEmails(parsedCallback, null);
       storeIndexProperties(indexAdmin, parsedCallback);
     } catch (Exception e) {
-      logger.error("Exception {} by indexing of outlook", e);
+      logger.error("Exception {} by indexing of {}", e, emailParsingFactory);
     }
   }
 
@@ -78,8 +84,10 @@ public class IndexControllerFactory {
 
     ElasticAdmin elasticAdmin = buildElasticAdmin(nodeType);
     IndexAdmin indexAdmin = new IndexAdmin(indexName, elasticAdmin);
-    EmailParsingController<Email> emailParsingController = emailParsingFactory.getEmailParsingController();
-    IndexerOfParsedEmails parsedCallback = new IndexerOfParsedEmails(new IndexerImpl(indexAdmin));
+    EmailParsingController<Email> emailParsingController = emailParsingFactory
+        .getEmailParsingController();
+    IndexerOfParsedEmails parsedCallback = new IndexerOfParsedEmails(
+        new IndexerImpl(indexAdmin));
     try {
       indexAdmin.connect();
       if (indexAdmin.checkIndex()) {
@@ -98,11 +106,14 @@ public class IndexControllerFactory {
     }
   }
 
-  protected void synchronizeIndex(IndexAdmin indexAdmin, IndexerOfParsedEmails parsedCallback, EmailParsingController<Email> emailParsingController) {
+  protected void synchronizeIndex(IndexAdmin indexAdmin,
+      IndexerOfParsedEmails parsedCallback,
+      EmailParsingController<Email> emailParsingController) {
 
     try {
       Date lastEmailDate = indexAdmin.propertyAsDate(lastEmailsDateProperty);
-      Integer lastIdProperty = (Integer) indexAdmin.property(lastEmailsIdProperty);
+      Integer lastIdProperty = (Integer) indexAdmin
+          .property(lastEmailsIdProperty);
       parsedCallback.setMaxId(lastIdProperty != null ? lastIdProperty : 0);
       emailParsingController.parseEmails(parsedCallback, lastEmailDate);
       storeIndexProperties(indexAdmin, parsedCallback);
@@ -111,12 +122,16 @@ public class IndexControllerFactory {
     }
   }
 
-  protected void storeIndexProperties(IndexAdmin indexAdmin, IndexerOfParsedEmails parsedCallback) throws IOException {
-    storeIndexProperty(indexAdmin, lastEmailsDateProperty, parsedCallback.getMaxEmailDate());
-    storeIndexProperty(indexAdmin, lastEmailsIdProperty, parsedCallback.getMaxId());
+  protected void storeIndexProperties(IndexAdmin indexAdmin,
+      IndexerOfParsedEmails parsedCallback) throws IOException {
+    storeIndexProperty(indexAdmin, lastEmailsDateProperty,
+        parsedCallback.getMaxEmailDate());
+    storeIndexProperty(indexAdmin, lastEmailsIdProperty,
+        parsedCallback.getMaxId());
   }
 
-  protected void storeIndexProperty(IndexAdmin indexAdmin, String name, Object value) throws IOException {
+  protected void storeIndexProperty(IndexAdmin indexAdmin, String name,
+      Object value) throws IOException {
 
     if (value != null) {
       indexAdmin.property(name, value);
@@ -133,8 +148,10 @@ public class IndexControllerFactory {
         String indexName = args[1].trim();
         String classOfEmailParsingFactory = args[2].trim();
 
-        emailParsingFactory = (EmailParsingFactory<Email>) Class.forName(classOfEmailParsingFactory).newInstance();
-        IndexControllerFactory indexControllerFactory = new IndexControllerFactory(indexName, emailParsingFactory);
+        emailParsingFactory = (EmailParsingFactory<Email>) Class.forName(
+            classOfEmailParsingFactory).newInstance();
+        IndexControllerFactory indexControllerFactory = new IndexControllerFactory(
+            indexName, emailParsingFactory);
         if (command.equalsIgnoreCase("recreate")) {
           indexControllerFactory.recreateIndex(NodeType.Transport);
         } else if (command.equalsIgnoreCase("synchronize")) {
@@ -146,13 +163,17 @@ public class IndexControllerFactory {
         }
       } catch (Exception e) {
         e.printStackTrace();
-        logger.error("Exception {} occured in IndexControllerFactory, with parameters {}: {}", e, args, e);
+        logger
+            .error(
+                "Exception {} occured in IndexControllerFactory, with parameters {}: {}",
+                e, args, e);
       } finally {
         if (emailParsingFactory != null) {
           try {
             emailParsingFactory.close();
           } catch (IOException e) {
-            logger.error("Exception {} by closing of emailParsingFactory", e, args);
+            logger.error("Exception {} by closing of emailParsingFactory", e,
+                args);
           }
         }
       }
@@ -163,7 +184,8 @@ public class IndexControllerFactory {
 
   public void updateMappings(NodeType nodeType) {
 
-    IndexAdmin indexAdmin = new IndexAdmin(indexName, new ElasticAdmin(nodeType));
+    IndexAdmin indexAdmin = new IndexAdmin(indexName,
+        new ElasticAdmin(nodeType));
 
     try {
       indexAdmin.connect();
@@ -175,12 +197,14 @@ public class IndexControllerFactory {
   }
 
   protected Mapping[] buildMappings() {
-    return new Mapping[] { new Mapping("email", "/ee/email/elasticsearch/email-mapping.json") };
+    return new Mapping[] { new Mapping("email",
+        "/ee/email/elasticsearch/email-mapping.json") };
   }
 
   protected static void printHelp() {
 
-    System.out.println("IndexControllerFactory [command] [indexName] [classOfEmailParsingFactory]");
+    System.out
+        .println("IndexControllerFactory [command] [indexName] [classOfEmailParsingFactory]");
     System.out.println("Command:");
     System.out.println("\trecreate");
     System.out.println("\tsynchronize");

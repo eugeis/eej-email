@@ -77,7 +77,7 @@ public class IndexerImpl implements Indexer<Email> {
       // IndexResponse response = requestBuilder.execute().actionGet();
       requestBuilder.execute();
 
-    } catch (Exception e) {
+    } catch (Throwable e) {
       this.logger.error("exception {} at index of {}", e, item);
     }
   }
