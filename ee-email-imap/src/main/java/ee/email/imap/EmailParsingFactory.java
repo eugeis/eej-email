@@ -42,9 +42,9 @@ public class EmailParsingFactory implements
   public EmailParsingController<Email> getEmailParsingController() {
     return new JavaMailEmailParsingController(
         findRequiredSystemProperty(SYS__SERVER),
-        findRequiredSystemProperty(SYS__LOGIN),
-        findRequiredSystemProperty(SYS__PASSWORD), "imaps",
-        createFolderFilterForRecursion(), createFolderFilter());
+        findRequiredSystemProperty(SYS__LOGIN), findRequiredSystemProperty(
+            SYS__PASSWORD, true), "imaps", createFolderFilterForRecursion(),
+        createFolderFilter());
   }
 
   /**
@@ -55,7 +55,7 @@ public class EmailParsingFactory implements
   protected RegExpFolderFilter createFolderFilter() {
 
     RegExpFolderFilter folderFilter = new RegExpFolderFilter(
-        findRequiredSystemProperty(SYS__REG_EXP_FOR_FOLDER, ".*"), true);
+        findRequiredSystemProperty(SYS__REG_EXP_FOR_FOLDER, ".*", false), true);
     return folderFilter;
   }
 
@@ -67,22 +67,27 @@ public class EmailParsingFactory implements
   protected RegExpFolderFilter createFolderFilterForRecursion() {
 
     RegExpFolderFilter folderFilterForRecursion = new RegExpFolderFilter(
-        findRequiredSystemProperty(SYS__REG_EXP_FOR_FOLDER_RECURSION, ".*"),
-        true);
+        findRequiredSystemProperty(SYS__REG_EXP_FOR_FOLDER_RECURSION, ".*",
+            false), true);
     return folderFilterForRecursion;
   }
 
   private String findRequiredSystemProperty(String key) {
-    return findRequiredSystemProperty(key, null);
+    return findRequiredSystemProperty(key, null, false);
   }
 
-  private String findRequiredSystemProperty(String key, String defaultValue) {
+  private String findRequiredSystemProperty(String key, boolean hidden) {
+    return findRequiredSystemProperty(key, null, hidden);
+  }
+
+  private String findRequiredSystemProperty(String key, String defaultValue,
+      boolean hidden) {
     String ret = System.getProperty(key, defaultValue);
     if (ret == null) {
       throw new IllegalArgumentException("System parameter '" + key
           + "' not defined.");
     } else {
-      this.logger.info("Use system parameter {}={}", key, ret);
+      this.logger.info("Use system parameter {}={}", key, hidden ? "..." : ret);
     }
     return ret;
   }
