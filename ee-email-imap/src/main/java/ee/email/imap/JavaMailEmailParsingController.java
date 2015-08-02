@@ -134,37 +134,50 @@ public class JavaMailEmailParsingController implements
     if (folder instanceof IMAPFolder) {
       final IMAPFolder imapFolder = (IMAPFolder) folder;
       imapFolder.open(Folder.READ_ONLY);
+      final String imapFolderName = imapFolder.getFullName();
       if (folder.isOpen()) {
         Message[] messages = imapFolder.getMessages();
-        for (int i = messages.length - 1; i >= 0; i--) {
-          final Message message = messages[i];
-          if (lastDate == null || message.getReceivedDate().after(lastDate)) {
 
-            try {
-              final Email email = messageParser
-                  .parseMessage((IMAPMessage) message);
-              executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                  try {
-                    parsedcallback.parsed(imapFolder.getFullName(), email);
-                  } catch (Exception e) {
-                    logger.error("'{}' by email callback processing in '{}'",
-                        e, folder);
-                  }
-                }
-              });
-            } catch (Exception e) {
-              logger.error("'{}' by email parsing in '{}'", e, folder);
+        if (lastDate == null) {
+          for (int i = 0; i < messages.length; i++) {
+            final Message message = messages[i];
+            parseEmail(message, imapFolderName, parsedcallback, executor);
+          }
+        } else {
+          for (int i = messages.length - 1; i >= 0; i--) {
+            final Message message = messages[i];
+            if (message.getReceivedDate().after(lastDate)) {
+              parseEmail(message, imapFolderName, parsedcallback, executor);
+            } else {
+              // all new messages read
+              break;
             }
-          } else {
-            // all new messages read
-            break;
           }
         }
+
       } else {
-        logger.error("Folder '{}' is still closed", folder);
+        logger.error("Folder '{}' is still closed", imapFolderName);
       }
+    }
+  }
+
+  private void parseEmail(final Message message, final String folderName,
+      final ParsedCallback<Email> parsedcallback, ExecutorService executor) {
+    try {
+      final Email email = messageParser.parseMessage((IMAPMessage) message);
+      executor.execute(new Runnable() {
+        @Override
+        public void run() {
+          try {
+            parsedcallback.parsed(folderName, email);
+          } catch (Exception e) {
+            logger.error("'{}' by email callback processing in '{}'", e,
+                folderName);
+          }
+        }
+      });
+    } catch (Exception e) {
+      logger.error("'{}' by email parsing in '{}'", e, folderName);
     }
   }
 }
