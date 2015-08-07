@@ -39,8 +39,8 @@ public class IndexControllerFactory {
 
   public void recreateIndex(NodeType nodeType) {
 
-    ElasticAdmin elasticAdmin = buildElasticAdmin(nodeType);
-    IndexAdmin indexAdmin = new IndexAdmin(indexName, elasticAdmin);
+    IndexAdmin indexAdmin = new IndexAdmin(indexName,
+        new ElasticAdmin(nodeType));
     EmailParsingController<Email> emailParsingController = emailParsingFactory
         .getEmailParsingController();
     IndexerOfParsedEmails parsedCallback = new IndexerOfParsedEmails(
@@ -52,14 +52,6 @@ public class IndexControllerFactory {
     } finally {
       dispose(indexAdmin);
     }
-  }
-
-  protected ElasticAdmin buildElasticAdmin(NodeType nodeType) {
-    ElasticAdmin elasticAdmin = new ElasticAdmin(nodeType);
-    if (nodeType == NodeType.Transport) {
-      elasticAdmin.addServerAddress("192.168.11.47", 9300);
-    }
-    return elasticAdmin;
   }
 
   protected void recreateIndex(IndexAdmin indexAdmin,
@@ -77,8 +69,8 @@ public class IndexControllerFactory {
 
   public void synchronizeIndex(NodeType nodeType) {
 
-    ElasticAdmin elasticAdmin = buildElasticAdmin(nodeType);
-    IndexAdmin indexAdmin = new IndexAdmin(indexName, elasticAdmin);
+    IndexAdmin indexAdmin = new IndexAdmin(indexName,
+        new ElasticAdmin(nodeType));
     EmailParsingController<Email> emailParsingController = emailParsingFactory
         .getEmailParsingController();
     IndexerOfParsedEmails parsedCallback = new IndexerOfParsedEmails(
@@ -174,7 +166,7 @@ public class IndexControllerFactory {
 
   protected Mapping[] buildMappings() {
     return new Mapping[] { new Mapping("email",
-        "/ee/email/elasticsearch/email-mapping.json") };
+        "/ee/email/elastic/email-mapping.json") };
   }
 
   protected static void printHelp() {
