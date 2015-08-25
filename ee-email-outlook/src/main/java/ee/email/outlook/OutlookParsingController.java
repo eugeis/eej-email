@@ -148,14 +148,13 @@ public class OutlookParsingController implements EmailParsingController<Email> {
         if (bodyFormat.isOlFormatHTML()) {
           ret.setBody(item.getHTMLBody());
         } else if (bodyFormat.isOlFormatRichText()) {
-          String html = richTextToHtml.rtfToHtml(item.getBody());
-          ret.setBody(html);
+          ret.setBody(richTextToHtml.rtfToHtml(item.getBody()));
         } else {
           ret.setBody(item.getBody());
         }
       }
     } catch (Exception e) {
-      logger.error("Exception {} by parsing of emai, with props {}", e);
+      logger.error("Exception {} by parsing of email {}", e, item);
     }
     return ret;
   }
