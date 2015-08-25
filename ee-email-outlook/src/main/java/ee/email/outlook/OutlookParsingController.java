@@ -17,9 +17,8 @@ import ee.email.outlook.base.OlBodyFormatEnum;
 import ee.email.outlook.base.OlItemTypeEnum;
 
 public class OutlookParsingController implements EmailParsingController<Email> {
-
   private final Logger logger = LoggerFactory.getLogger(OleAuto.class);
-
+  private final RichTextToHtml richTextToHtml = new RichTextToHtml();
   private final Application outlook;
 
   private FolderFilter folderFilterForRecursion;
@@ -28,7 +27,7 @@ public class OutlookParsingController implements EmailParsingController<Email> {
   public OutlookParsingController(Application outlookApplication, FolderFilter folderFilterForRecursion, FolderFilter folderFilter) {
 
     super();
-    this.outlook = outlookApplication;
+    outlook = outlookApplication;
     this.folderFilterForRecursion = folderFilterForRecursion;
     this.folderFilter = folderFilter;
 
@@ -37,7 +36,7 @@ public class OutlookParsingController implements EmailParsingController<Email> {
   @Override
   public int parseEmailContainer(File file, ParsedCallback<Email> parsedCallback,
 
-  Date newerAsDate) throws IOException {
+    Date newerAsDate) throws IOException {
 
     return 0;
   }
@@ -83,7 +82,7 @@ public class OutlookParsingController implements EmailParsingController<Email> {
   protected int doParseFolder(String folderName, MAPIFolder folder, ParsedCallback<Email> parsedCallback, Date newerAsDate) {
 
     int ret = 0;
-    this.logger.info("Parse folder {} {}", folderName, folder);
+    logger.info("Parse folder {} {}", folderName, folder);
     try {
       @SuppressWarnings("unchecked")
       Items<OleAuto> items = folder.getItems();
@@ -126,7 +125,7 @@ public class OutlookParsingController implements EmailParsingController<Email> {
         }
       }
     } catch (Exception e) {
-      this.logger.error("Exception {} by parsing of folder", e, folder);
+      logger.error("Exception {} by parsing of folder", e, folder);
     }
     return ret;
   }
@@ -148,12 +147,15 @@ public class OutlookParsingController implements EmailParsingController<Email> {
         ret.setBodyFormat(BodyFormatEnum.findEnum(bodyFormat.getValue()));
         if (bodyFormat.isOlFormatHTML()) {
           ret.setBody(item.getHTMLBody());
+        } else if (bodyFormat.isOlFormatRichText()) {
+          String html = richTextToHtml.rtfToHtml(item.getBody());
+          ret.setBody(html);
         } else {
           ret.setBody(item.getBody());
         }
       }
     } catch (Exception e) {
-      this.logger.error("Exception {} by parsing of emai, with props {}", e);
+      logger.error("Exception {} by parsing of emai, with props {}", e);
     }
     return ret;
   }
@@ -165,7 +167,7 @@ public class OutlookParsingController implements EmailParsingController<Email> {
 
     MAPInameSpace mapi = null;
     try {
-      mapi = this.outlook.getMapiNamespace();
+      mapi = outlook.getMapiNamespace();
       Folders<MAPIFolder> folders = mapi.getFolders();
       ret = +parseFolders(folders, parsedCallback, newerAsDate);
     } finally {
