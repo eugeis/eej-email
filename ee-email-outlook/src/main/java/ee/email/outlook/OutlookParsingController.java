@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import ee.email.core.EmailParsingController;
 import ee.email.core.FolderFilter;
 import ee.email.core.ParsedCallback;
+import ee.email.core.TextToHtml;
 import ee.email.model.BodyFormatEnum;
 import ee.email.model.Email;
 import ee.email.outlook.base.MailItem;
@@ -18,7 +19,7 @@ import ee.email.outlook.base.OlItemTypeEnum;
 
 public class OutlookParsingController implements EmailParsingController<Email> {
   private final Logger logger = LoggerFactory.getLogger(OleAuto.class);
-  private final RichTextToHtml richTextToHtml = new RichTextToHtml();
+  private final TextToHtml textToHtml = new TextToHtml();
   private final Application outlook;
 
   private FolderFilter folderFilterForRecursion;
@@ -103,7 +104,7 @@ public class OutlookParsingController implements EmailParsingController<Email> {
         } else {
           // parse only new messages
           items.sort("ReceivedTime", true);
-          if (items != null && items.isAuto()) {
+          if (items.isAuto()) {
             for (OleAuto item : items) {
               if (item instanceof MailItem) {
                 MailItem mailItem = (MailItem) item;
@@ -144,14 +145,12 @@ public class OutlookParsingController implements EmailParsingController<Email> {
 
       OlBodyFormatEnum bodyFormat = item.getBodyFormat();
       if (bodyFormat != null) {
-        ret.setBodyFormat(BodyFormatEnum.findEnum(bodyFormat.getValue()));
         if (bodyFormat.isOlFormatHTML()) {
           ret.setBody(item.getHTMLBody());
-        } else if (bodyFormat.isOlFormatRichText()) {
-          ret.setBody(richTextToHtml.rtfToHtml(item.getBody()));
         } else {
-          ret.setBody(item.getBody());
+          ret.setBody(textToHtml.convert(item.getBody()));
         }
+        ret.setBodyFormat(BodyFormatEnum.HTML);
       }
     } catch (Exception e) {
       logger.error("Exception {} by parsing of email {}", e, item);
