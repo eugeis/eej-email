@@ -1,0 +1,44 @@
+{
+  "email" : {
+    "properties" : {
+      "body" : {
+        "type" : "string"
+      },
+      "bodyFormat" : {
+        "type" : "string"
+      },
+      "date" : {
+        "type" : "date",
+        "format" : "dateOptionalTime"
+      },
+      "folder" : {
+        "type" : "string"
+      },
+      "from" : {
+        "type" : "string"
+      },
+      "fromName" : {
+        "type" : "string"
+      },
+      "subject" : {
+        "type" : "string"
+      },
+      "to" : {
+        "type" : "string"
+      }
+    },
+	"_meta" : {
+		"elasticsearch-head" : {
+			"browser" 		: {
+				"columns" : [
+					{"label": "Date", 	"path":"_source.date", "converter":{"id": "date", "pattern":"dd.MM.yy HH:mm"} },
+					{"label": "Subject","path":"_source.subject" },
+					{"label": "From", 	"path":"_source.fromName" },
+					{"label": "To", 	"path":"_source.to" }
+				],
+				"previewConverter"	:	{	"id": "email", "title":"Email" }
+			}
+		}
+	}
+  }
+}
