@@ -17,6 +17,9 @@ package ee.email.core;
 
 import java.util.Set;
 
+/**
+ * @author Eugen Eisler
+ */
 public class SetFolderFilter implements FolderFilter {
 
   private final Set<String> folders;
@@ -34,10 +37,10 @@ public class SetFolderFilter implements FolderFilter {
   public boolean isFolderToParse(String folderPath) {
 
     boolean ret;
-    if (this.include) {
-      ret = this.folders.contains(folderPath);
+    if (include) {
+      ret = folders.contains(folderPath);
     } else {
-      ret = !this.folders.contains(folderPath);
+      ret = !folders.contains(folderPath);
     }
     return ret;
   }

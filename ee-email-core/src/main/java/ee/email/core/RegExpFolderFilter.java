@@ -17,6 +17,9 @@ package ee.email.core;
 
 import java.util.regex.Pattern;
 
+/**
+ * @author Eugen Eisler
+ */
 public class RegExpFolderFilter implements FolderFilter {
 
   private final Pattern folderPattern;
@@ -26,7 +29,7 @@ public class RegExpFolderFilter implements FolderFilter {
   public RegExpFolderFilter(String folderRegExp, boolean include) {
 
     super();
-    this.folderPattern = Pattern.compile(folderRegExp);
+    folderPattern = Pattern.compile(folderRegExp);
     this.include = include;
   }
 
@@ -34,10 +37,10 @@ public class RegExpFolderFilter implements FolderFilter {
   public boolean isFolderToParse(String folderPath) {
 
     boolean ret;
-    if (this.include) {
-      ret = this.folderPattern.matcher(folderPath).matches();
+    if (include) {
+      ret = folderPattern.matcher(folderPath).matches();
     } else {
-      ret = !this.folderPattern.matcher(folderPath).matches();
+      ret = !folderPattern.matcher(folderPath).matches();
     }
     return ret;
   }

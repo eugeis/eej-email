@@ -18,6 +18,9 @@ package ee.email.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Eugen Eisler
+ */
 public class EmailContainer {
 
   private String name;
@@ -28,12 +31,12 @@ public class EmailContainer {
 
     super();
     this.name = name;
-    this.emails = new ArrayList<Email>();
+    emails = new ArrayList<Email>();
   }
 
   public String getName() {
 
-    return this.name;
+    return name;
   }
 
   public void setName(String name) {
@@ -43,7 +46,7 @@ public class EmailContainer {
 
   public List<Email> getEmails() {
 
-    return this.emails;
+    return emails;
   }
 
   public void setEmails(List<Email> emails) {
@@ -53,7 +56,7 @@ public class EmailContainer {
 
   public boolean add(Email e) {
 
-    return this.emails.add(e);
+    return emails.add(e);
   }
 
 }

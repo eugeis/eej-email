@@ -18,6 +18,9 @@ package ee.email.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author Eugen Eisler
+ */
 public class Email {
 
   private static SimpleDateFormat dateFormat = new SimpleDateFormat();
@@ -46,7 +49,7 @@ public class Email {
 
   public Date getDate() {
 
-    return this.date;
+    return date;
   }
 
   public void setDate(Date date) {
@@ -56,7 +59,7 @@ public class Email {
 
   public String getFromName() {
 
-    return this.fromName;
+    return fromName;
   }
 
   public void setFromName(String fromName) {
@@ -66,7 +69,7 @@ public class Email {
 
   public String getFrom() {
 
-    return this.from;
+    return from;
   }
 
   public void setFrom(String from) {
@@ -76,7 +79,7 @@ public class Email {
 
   public String getTo() {
 
-    return this.to;
+    return to;
   }
 
   public void setTo(String to) {
@@ -86,7 +89,7 @@ public class Email {
 
   public String getCc() {
 
-    return this.cc;
+    return cc;
   }
 
   public void setCc(String cc) {
@@ -96,7 +99,7 @@ public class Email {
 
   public String getBcc() {
 
-    return this.bcc;
+    return bcc;
   }
 
   public void setBcc(String bcc) {
@@ -106,7 +109,7 @@ public class Email {
 
   public BodyFormatEnum getBodyFormat() {
 
-    return this.bodyFormat;
+    return bodyFormat;
   }
 
   public void setBodyFormat(BodyFormatEnum bodyFormat) {
@@ -116,7 +119,7 @@ public class Email {
 
   public String getBody() {
 
-    return this.body;
+    return body;
   }
 
   public void setBody(String body) {
@@ -126,7 +129,7 @@ public class Email {
 
   public String getText() {
 
-    return this.text;
+    return text;
   }
 
   public void setText(String text) {
@@ -136,7 +139,7 @@ public class Email {
 
   public String getSubject() {
 
-    return this.subject;
+    return subject;
   }
 
   public void setSubject(String subject) {
@@ -146,7 +149,7 @@ public class Email {
 
   public String getId() {
 
-    return this.id;
+    return id;
   }
 
   public void setId(String id) {
@@ -157,8 +160,8 @@ public class Email {
   @Override
   public String toString() {
 
-    return "Email [id=" + this.id + ", from=" + this.from + ", subject=" + this.subject + ", to=" + this.to
-        + ", date=" + (this.date != null ? dateFormat.format(this.date) : "null") + "]";
+    return "Email [id=" + id + ", from=" + from + ", subject=" + subject + ", to=" + to
+        + ", date=" + (date != null ? dateFormat.format(date) : "null") + "]";
   }
 
 }

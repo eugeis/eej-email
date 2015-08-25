@@ -19,6 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * @author Eugen Eisler
+ */
 public interface EmailParsingController<E> {
 
   int parseEmailContainer(File file, ParsedCallback<E> parsedCallback, Date newerAsDate) throws IOException;

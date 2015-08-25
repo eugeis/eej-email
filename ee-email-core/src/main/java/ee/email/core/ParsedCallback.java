@@ -17,6 +17,9 @@ package ee.email.core;
 
 import java.util.List;
 
+/**
+ * @author Eugen Eisler
+ */
 public interface ParsedCallback<E> {
 
   void parsed(String parentReference, E entity);

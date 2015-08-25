@@ -15,6 +15,9 @@
  */
 package ee.email.core;
 
+/**
+ * @author Eugen Eisler
+ */
 public interface FolderFilter {
 
   boolean isFolderToParse(String folderPath);

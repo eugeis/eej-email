@@ -17,6 +17,9 @@ package ee.email.core;
 
 import java.io.Closeable;
 
+/**
+ * @author Eugen Eisler
+ */
 public interface EmailParsingFactory<E> extends Closeable {
   EmailParsingController<E> getEmailParsingController();
 }

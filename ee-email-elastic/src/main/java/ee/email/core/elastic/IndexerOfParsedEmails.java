@@ -1,3 +1,18 @@
+/*
+ * Copyright 2015-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package ee.email.core.elastic;
 
 import java.util.Date;
@@ -25,7 +40,7 @@ public class IndexerOfParsedEmails implements ParsedCallback<Email> {
     super();
     this.indexAdmin = indexAdmin;
     this.indexer = indexer;
-    this.maxId = new AtomicLong(1);
+    maxId = new AtomicLong(1);
   }
 
   public void setMaxId(long maxId) {
@@ -35,7 +50,7 @@ public class IndexerOfParsedEmails implements ParsedCallback<Email> {
   @Override
   public void parsed(String parentReference, Email entity) {
     fillGenericIdIfNotSet(entity);
-    this.indexer.index(parentReference, entity);
+    indexer.index(parentReference, entity);
     checkMaxEmailDate(entity);
     storeIndexProperties();
   }
@@ -43,9 +58,9 @@ public class IndexerOfParsedEmails implements ParsedCallback<Email> {
   protected void checkMaxEmailDate(Email entity) {
 
     Date emailDate = entity.getDate();
-    if (this.maxEmailDate == null
-        || (emailDate != null && emailDate.after(this.maxEmailDate))) {
-      this.maxEmailDate = emailDate;
+    if (maxEmailDate == null
+        || (emailDate != null && emailDate.after(maxEmailDate))) {
+      maxEmailDate = emailDate;
     }
   }
 
@@ -54,7 +69,7 @@ public class IndexerOfParsedEmails implements ParsedCallback<Email> {
     for (Email entity : entities) {
       fillGenericIdIfNotSet(entity);
     }
-    this.indexer.index(parentReference, entities);
+    indexer.index(parentReference, entities);
     for (Email email : entities) {
       checkMaxEmailDate(email);
     }
@@ -72,7 +87,7 @@ public class IndexerOfParsedEmails implements ParsedCallback<Email> {
     if (maxEmailDate == null) {
       maxEmailDate = getMaxEmailDateInIndex();
     }
-    return this.maxEmailDate;
+    return maxEmailDate;
   }
 
   public Date getMaxEmailDateInIndex() {
@@ -97,7 +112,7 @@ public class IndexerOfParsedEmails implements ParsedCallback<Email> {
   }
 
   protected void storeIndexProperty(IndexAdmin indexAdmin, String name,
-      Object value) {
+    Object value) {
 
     if (value != null) {
       try {
